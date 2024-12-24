@@ -26,3 +26,6 @@ go.work.sum
 
 # add storage folder
 storage
+
+# add config file only root-level wala config
+/config
