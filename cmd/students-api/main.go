@@ -12,23 +12,22 @@ import (
 	"time"
 
 	"github.com/helloankitpandey/students-api/internal/config"
+	"github.com/helloankitpandey/students-api/internal/http/handlers/student"
 )
 
 func main() {
 	// fmt.Println("welcome to students-a pii")
-	// load config
+	// 1.load config
 	cfg := config.MustLoad()
 
-	// database
-	// setup router
+	// 2.database
+	// 3.setup router
 	router := http.NewServeMux()
 
-	router.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome to students api"))
-	})
+	router.HandleFunc("POST /api/students", student.New())
 	
 	
-	// setup server
+	// 4.setup server
 
 	server := http.Server{
 		Addr:  cfg.Addr,
