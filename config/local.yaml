@@ -1,0 +1,7 @@
+env: "dev"
+# sql-lite is file based database , so we declare path for that database 
+# file under sql-lite has .db extension
+storage_path: "storage/storage.db"
+# configuration for server-port
+http_server:
+  address: "localhost:8082"
