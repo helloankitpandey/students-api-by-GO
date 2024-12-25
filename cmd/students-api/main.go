@@ -24,6 +24,8 @@ func main() {
 	fmt.Println("cfg is loaded")
 
 
+
+
 	// 2.database
 	storage, err := sqlite.New(cfg)
 	if err != nil {
@@ -34,14 +36,20 @@ func main() {
 	slog.Info("storage initialized", slog.String("env", cfg.Env), slog.String("version", "1.0.0"))
 	// for graphical user interface of database use =>> TablePlus
 
-	
+
+
+
 
 	// 3.setup router
 	router := http.NewServeMux()
 
 	router.HandleFunc("POST /api/students", student.New(storage))
+	// getting students data by id
+	router.HandleFunc("GET /api/students/{id}", student.GetById(storage))
 	
 	
+
+
 	// 4.setup server
 
 	server := http.Server{

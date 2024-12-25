@@ -2,9 +2,11 @@ package sqlite
 
 import (
 	"database/sql"
+	"fmt"
 
 	"github.com/helloankitpandey/students-api/internal/config"
-	_"github.com/mattn/go-sqlite3" 
+	"github.com/helloankitpandey/students-api/internal/types"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 // here we have to implement Storage interface
@@ -65,3 +67,36 @@ func (s *Sqlite) CreateStudent(name string, email string, age int) (int64, error
 }
 
 // now after makinf New we have to call it main.go file
+
+
+// Now implenting new interface 
+// i.e etStudentById(id int64) (types.Student, error)
+// for getting student data by id
+func (s *Sqlite) GetStudentById(id int64) ( types.Student , error) {
+
+	// sbse phle sql query ko prepare krna hoga
+	stmt, err := s.Db.Prepare("SELECT id, name, age, email FROM students WHERE id = ? LIMIT 1")
+	if err != nil {
+		return types.Student{}, err 
+	}
+
+	defer stmt.Close()
+
+	// Now jo data database se aa rha hai usse hame struct ke andar serialize krke dalna hoga
+	var student types.Student
+
+	// same as table created in sql same column-wise
+	err = stmt.QueryRow(id).Scan(&student.Id, &student.Name, &student.Age, &student.Email) // same as table created in sql same column-wise
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return types.Student{}, fmt.Errorf("no student found with id %s", fmt.Sprint(id))
+		}
+		return types.Student{}, fmt.Errorf("query error: %w", err)
+	}
+
+	return student, nil
+
+	// now getstudentbyid is ready to use in student.go/GetById 
+}
+
