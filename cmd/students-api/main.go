@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	// "fmt"
+	"fmt"
 	"log"
 	"log/slog"
 	"net/http"
@@ -13,18 +13,33 @@ import (
 
 	"github.com/helloankitpandey/students-api/internal/config"
 	"github.com/helloankitpandey/students-api/internal/http/handlers/student"
+	"github.com/helloankitpandey/students-api/internal/storage/sqlite"
 )
 
 func main() {
 	// fmt.Println("welcome to students-a pii")
 	// 1.load config
+
 	cfg := config.MustLoad()
+	fmt.Println("cfg is loaded")
+
 
 	// 2.database
+	storage, err := sqlite.New(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("sql lite  is loaded")
+
+	slog.Info("storage initialized", slog.String("env", cfg.Env), slog.String("version", "1.0.0"))
+	// for graphical user interface of database use =>> TablePlus
+
+	
+
 	// 3.setup router
 	router := http.NewServeMux()
 
-	router.HandleFunc("POST /api/students", student.New())
+	router.HandleFunc("POST /api/students", student.New(storage))
 	
 	
 	// 4.setup server
