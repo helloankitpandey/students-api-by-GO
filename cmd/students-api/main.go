@@ -46,6 +46,9 @@ func main() {
 	router.HandleFunc("POST /api/students", student.New(storage))
 	// getting students data by id
 	router.HandleFunc("GET /api/students/{id}", student.GetById(storage))
+	// getting all students data 
+	router.HandleFunc("GET /api/students", student.GetList(storage))
+
 	
 	
 

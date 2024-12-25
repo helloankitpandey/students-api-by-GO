@@ -10,11 +10,13 @@ import (
 	"strconv"
 
 	"github.com/go-playground/validator/v10"
+	// "github.com/helloankitpandey/students-api/internal/http/handlers/student"
 	"github.com/helloankitpandey/students-api/internal/storage"
 	"github.com/helloankitpandey/students-api/internal/types"
 	"github.com/helloankitpandey/students-api/internal/utils/response"
 )
 
+// route for posting student data to database
 func New(storage storage.Storage) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -106,5 +108,23 @@ func GetById(storage storage.Storage) http.HandlerFunc {
 		}
 
 		response.WriteJson(w, http.StatusOK, student)
+	}
+}
+
+// Now new routw for getting all students data in one click
+func GetList(storage storage.Storage) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		slog.Info("getting all students")
+
+		// Now make interface/method in storage.go file
+		students, err := storage.GetStudents()
+		if err != nil {
+			response.WriteJson(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		response.WriteJson(w, http.StatusOK, students)
+		
+		
 	}
 }

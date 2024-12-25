@@ -100,3 +100,41 @@ func (s *Sqlite) GetStudentById(id int64) ( types.Student , error) {
 	// now getstudentbyid is ready to use in student.go/GetById 
 }
 
+
+// NOw implementing new interface
+// i.e 	GetStudents() ([]types.Student, error)
+// for getting all students data
+func (s *Sqlite) GetStudents() ([]types.Student, error) {
+
+	stmt, err := s.Db.Prepare("SELECT id, name, age, email FROM students")
+	if err != nil {
+		return nil ,err
+	}
+
+	defer stmt.Close()
+
+	// now execute it
+	rows, err := stmt.Query()
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var students []types.Student
+
+	for rows.Next() {
+		var student types.Student
+
+		err := rows.Scan(&student.Id, &student.Name, &student.Age, &student.Email)
+		if err != nil {
+			return nil, err
+		}
+
+		students = append(students, student)
+	}
+
+	// returning all students from looping
+	return students, nil
+}
+

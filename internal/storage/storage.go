@@ -8,4 +8,6 @@ type Storage interface{
 	CreateStudent(name string, email string, age int) (int64, error)
 	// inteface for get student data by id & implement it in sqlite.go by making a method of same name
 	GetStudentById(id int64) (types.Student, error)
+	// interface for getting all students data & don't take any input && implement in slite package ke ander
+	GetStudents() ([]types.Student, error)
 }
