@@ -27,7 +27,6 @@ func main() {
 
 
 	// 2.database
-	fmt.Println("cfg is loaded")
 	storage, err := sqlite.New(cfg)
 	if err != nil {
 		log.Fatal(err)
