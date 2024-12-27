@@ -9,6 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+
 // here we have to implement Storage interface
 
 type Sqlite struct {
@@ -138,3 +139,4 @@ func (s *Sqlite) GetStudents() ([]types.Student, error) {
 	return students, nil
 }
 
+fmt.Println("cfg is loaded")
