@@ -1,6 +1,10 @@
 package storage
 
-import "github.com/helloankitpandey/students-api/internal/types"
+import (
+	"fmt"
+
+	"github.com/helloankitpandey/students-api/internal/types"
+)
 
 // interface ka use krke ham apne application ko plugin type key bna skte
 // means if we uses sql-lite and we want to switch in postgres then it will done easily by minimal changes && also good for testing
@@ -10,4 +14,6 @@ type Storage interface{
 	GetStudentById(id int64) (types.Student, error)
 	// interface for getting all students data & don't take any input && implement in slite package ke ander
 	GetStudents() ([]types.Student, error)
+	fmt.Println("cfg is loaded")
+
 }
