@@ -22,8 +22,6 @@ func main() {
 
 	cfg := config.MustLoad()
 	fmt.Println("cfg is loaded")
-	fmt.Println("cfg is loaded")
-
 
 
 

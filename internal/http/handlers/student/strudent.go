@@ -128,4 +128,3 @@ func GetList(storage storage.Storage) http.HandlerFunc {
 		
 	}
 }
-fmt.Println("cfg is loaded")
