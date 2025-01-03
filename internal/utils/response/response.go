@@ -20,8 +20,6 @@ const (
 	StatusOK = "OK"
 	StatusError = "Error"
 )
-fmt.Println("cfg is loaded")
-
 
 func WriteJson(w http.ResponseWriter, status int, data interface {}) error {
 
