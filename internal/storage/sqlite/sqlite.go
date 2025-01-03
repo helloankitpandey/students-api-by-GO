@@ -100,6 +100,8 @@ func (s *Sqlite) GetStudentById(id int64) ( types.Student , error) {
 	// now getstudentbyid is ready to use in student.go/GetById 
 }
 
+fmt.Println("cfg is loaded")
+
 
 // NOw implementing new interface
 // i.e 	GetStudents() ([]types.Student, error)
