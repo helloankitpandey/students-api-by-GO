@@ -128,3 +128,4 @@ func GetList(storage storage.Storage) http.HandlerFunc {
 		
 	}
 }
+	// added some log to check
