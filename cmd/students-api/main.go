@@ -22,6 +22,7 @@ func main() {
 
 	cfg := config.MustLoad()
 	fmt.Println("cfg is loaded")
+	// added some log to check
 
 
 
